@@ -33,6 +33,6 @@ function mihdan_only_one_category() {
 	</script>
 	<?php
 }
-add_action( 'admin_footer', 'mihdan_only_one_category' );
+add_action( 'admin_footer', __NAMESPACE__ . '\mihdan_only_one_category' );
 
 // eof;
