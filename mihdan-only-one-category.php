@@ -3,7 +3,7 @@
  * Plugin Name: Mihdan: Only One Category
  * Plugin URI: https://github.com/mihdan/mihdan-only-one-category
  * Description: Плагин заменяет чекбоксы на радиокнопки в метабоксе категорий на странице редактирования поста
- * Version: 1.0
+ * Version: 1.1
  * Author: Mikhail Kobzarev
  * Author URI: https://www.kobzarev.com/
  * License: GNU General Public License v2
@@ -25,12 +25,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Добавляем скрипт в футер админки
  */
 function mihdan_only_one_category() {
+	$screen = get_current_screen();
 	?>
-	<script>
-		jQuery( function ( $ ) {
-			jQuery( '#categorydiv :checkbox[name^=post_category]' ).attr( 'type','radio' );
-		} );
-	</script>
+	<?php if ( 'post' === $screen->post_type && 'edit' === $screen->parent_base ) : ?>
+		<script>
+			jQuery( function ( $ ) {
+				jQuery( '#categorydiv :checkbox[name^=post_category]' ).attr( 'type','radio' );
+				jQuery( '.category-checklist :checkbox[name^=post_category]' ).attr( 'type','radio' );
+			} );
+		</script>
+	<?php endif; ?>
 	<?php
 }
 add_action( 'admin_footer', __NAMESPACE__ . '\mihdan_only_one_category' );
